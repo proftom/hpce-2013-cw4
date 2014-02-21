@@ -6,6 +6,13 @@
 #include <memory>
 #include <cstdio>
 
+//Added for windows
+#include <string>
+#include <algorithm>
+
+
+using namespace std;
+
 namespace hpce{
 	
 //! Create a square world with a standardised "slalom track"
