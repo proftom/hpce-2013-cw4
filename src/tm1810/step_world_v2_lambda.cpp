@@ -16,22 +16,17 @@ using namespace std;
 namespace hpce{
 	namespace tm1810 {
 
-		void kernal_xy(uint32_t *world_properties, const float *world_state, float *buffer, uint32_t x, uint32_t y, uint32_t w, float outer)
+		void kernal_xy(const uint32_t *world_properties, const float *world_state, float *buffer, uint32_t x, uint32_t y, uint32_t w, float outer)
 		{
 			unsigned index = y*w + x;
 			float inner = 1 - outer / 4;				// Anything that doesn't spread stays
-			
-			std::cerr << "before";
-			std:cerr << world_properties;
-			
-			std::cerr << "after\n";
+
 			if ((world_properties[index] & Cell_Fixed) || (world_properties[index] & Cell_Insulator)){
 				
 				// Do nothing, this cell never changes (e.g. a boundary, or an interior fixed-value heat-source)
 				buffer[index] = world_state[index];
 			}
 			else{
-				std::cerr << "else";
 				float contrib = inner;
 				float acc = inner*world_state[index];
 
@@ -78,7 +73,7 @@ namespace hpce{
 			unsigned w = world.w, h = world.h;
 
 			float outer = world.alpha*dt;		// We spread alpha to other cells per time
-			//uint32_t *g = ;
+
 			// This is our temporary working space
 			std::vector<float> buffer(w*h);
 
@@ -86,7 +81,7 @@ namespace hpce{
 				for (unsigned y = 0; y < h; y++){
 					for (unsigned x = 0; x < w; x++){
 						
-						kernal_xy((uint32_t *)world.properties[0], &world.state[0], &buffer[0], x, y, w, outer);
+						kernal_xy((uint32_t *)&world.properties[0], &world.state[0], &buffer[0], x, y, w, outer);
 					}  // end of for(x...
 				} // end of for(y...
 
