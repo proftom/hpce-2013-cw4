@@ -12,9 +12,11 @@
 
 
 
-# include <alloca.h>
+//#include <alloca.h>
 #define __CL_ENABLE_EXCEPTIONS 
 #include "CL/cl.hpp"
+
+using namespace std;
 
 int main(int argc, char *argv[])
 {

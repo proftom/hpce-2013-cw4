@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hpce-2013-cw4", "hpce-2013-cw4\hpce-2013-cw4.vcxproj", "{441FE024-833E-4104-9D54-A976FC5EECEE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "make_world", "make_world\make_world.vcxproj", "{441FE024-833E-4104-9D54-A976FC5EECEE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "step_world", "step_world\step_world.vcxproj", "{F7F13FF8-14A3-474E-A0FB-4F6D3EF8D900}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "render_world", "render_world\render_world.vcxproj", "{E886E915-D8BE-42BB-AB27-E85D98BD8863}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "step_world_v1_lambda", "step_world_v1_lambda\step_world_v1_lambda.vcxproj", "{90DCDCFD-9548-4638-B541-F6E14485286F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "step_world_v2_lambda", "step_world_v2_lambda\step_world_v2_lambda.vcxproj", "{1FDD6344-074B-440E-9B81-FC01CDA2FD6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{441FE024-833E-4104-9D54-A976FC5EECEE}.Debug|Win32.Build.0 = Debug|Win32
 		{441FE024-833E-4104-9D54-A976FC5EECEE}.Release|Win32.ActiveCfg = Release|Win32
 		{441FE024-833E-4104-9D54-A976FC5EECEE}.Release|Win32.Build.0 = Release|Win32
+		{F7F13FF8-14A3-474E-A0FB-4F6D3EF8D900}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F7F13FF8-14A3-474E-A0FB-4F6D3EF8D900}.Debug|Win32.Build.0 = Debug|Win32
+		{F7F13FF8-14A3-474E-A0FB-4F6D3EF8D900}.Release|Win32.ActiveCfg = Release|Win32
+		{F7F13FF8-14A3-474E-A0FB-4F6D3EF8D900}.Release|Win32.Build.0 = Release|Win32
+		{E886E915-D8BE-42BB-AB27-E85D98BD8863}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E886E915-D8BE-42BB-AB27-E85D98BD8863}.Debug|Win32.Build.0 = Debug|Win32
+		{E886E915-D8BE-42BB-AB27-E85D98BD8863}.Release|Win32.ActiveCfg = Release|Win32
+		{E886E915-D8BE-42BB-AB27-E85D98BD8863}.Release|Win32.Build.0 = Release|Win32
+		{90DCDCFD-9548-4638-B541-F6E14485286F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{90DCDCFD-9548-4638-B541-F6E14485286F}.Debug|Win32.Build.0 = Debug|Win32
+		{90DCDCFD-9548-4638-B541-F6E14485286F}.Release|Win32.ActiveCfg = Release|Win32
+		{90DCDCFD-9548-4638-B541-F6E14485286F}.Release|Win32.Build.0 = Release|Win32
+		{1FDD6344-074B-440E-9B81-FC01CDA2FD6A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1FDD6344-074B-440E-9B81-FC01CDA2FD6A}.Debug|Win32.Build.0 = Debug|Win32
+		{1FDD6344-074B-440E-9B81-FC01CDA2FD6A}.Release|Win32.ActiveCfg = Release|Win32
+		{1FDD6344-074B-440E-9B81-FC01CDA2FD6A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

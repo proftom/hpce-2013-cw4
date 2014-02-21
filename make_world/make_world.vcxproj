@@ -13,6 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{441FE024-833E-4104-9D54-A976FC5EECEE}</ProjectGuid>
     <RootNamespace>hpce2013cw4</RootNamespace>
+    <ProjectName>make_world</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -45,6 +46,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Repository\hpce-2013-cw4\opencl_sdk\include\;C:\Repository\hpce-2013-cw4\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -67,9 +69,6 @@
   <ItemGroup>
     <ClCompile Include="..\src\heat.cpp" />
     <ClCompile Include="..\src\make_world.cpp" />
-    <ClCompile Include="..\src\render_world.cpp" />
-    <ClCompile Include="..\src\step_world.cpp" />
-    <ClCompile Include="..\src\test_opencl.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
