@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "step_world_v1_lambda", "ste
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "step_world_v2_lambda", "step_world_v2_lambda\step_world_v2_lambda.vcxproj", "{1FDD6344-074B-440E-9B81-FC01CDA2FD6A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "step_world_v3_opencl", "step_world_v3_opencl\step_world_v3_opencl.vcxproj", "{B7625F1A-695A-4641-BE28-B260EB600349}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -39,6 +41,10 @@ Global
 		{1FDD6344-074B-440E-9B81-FC01CDA2FD6A}.Debug|Win32.Build.0 = Debug|Win32
 		{1FDD6344-074B-440E-9B81-FC01CDA2FD6A}.Release|Win32.ActiveCfg = Release|Win32
 		{1FDD6344-074B-440E-9B81-FC01CDA2FD6A}.Release|Win32.Build.0 = Release|Win32
+		{B7625F1A-695A-4641-BE28-B260EB600349}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B7625F1A-695A-4641-BE28-B260EB600349}.Debug|Win32.Build.0 = Debug|Win32
+		{B7625F1A-695A-4641-BE28-B260EB600349}.Release|Win32.ActiveCfg = Release|Win32
+		{B7625F1A-695A-4641-BE28-B260EB600349}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
