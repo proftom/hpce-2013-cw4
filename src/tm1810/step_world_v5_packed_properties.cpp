@@ -168,8 +168,8 @@ namespace hpce{
 
 			size_t cbBuffer = 4 * world.w*world.h;
 			cl::Buffer buffProperties(context, CL_MEM_READ_ONLY, cbBuffer);
-			cl::Buffer buffState(context, CL_MEM_READ_ONLY, cbBuffer);
-			cl::Buffer buffBuffer(context, CL_MEM_WRITE_ONLY, cbBuffer);
+			cl::Buffer buffState(context, CL_MEM_READ_WRITE, cbBuffer);
+			cl::Buffer buffBuffer(context, CL_MEM_READ_WRITE, cbBuffer);
 
 			cl::Kernel kernel(program, "kernel_xy");
 			kernel.setArg(0, inner);
@@ -178,9 +178,14 @@ namespace hpce{
 			kernel.setArg(3, buffState);
 			kernel.setArg(4, buffBuffer);
 
+
+			cl::NDRange offset(0, 0);               // Always start iterations at x=0, y=0
+			cl::NDRange globalSize(w, h);   // Global size must match the original loops
+			cl::NDRange localSize = cl::NullRange;    // We don't care about local size
+
 			cl::CommandQueue queue(context, device);
 			queue.enqueueWriteBuffer(buffProperties, CL_TRUE, 0, cbBuffer, &world.properties[0]);
-
+			queue.enqueueWriteBuffer(buffState, CL_FALSE, 0, cbBuffer, &world.state[0]);
 
 			for (unsigned t = 0; t < n; t++){
 				//for (unsigned y = 0; y < h; y++){
@@ -193,30 +198,29 @@ namespace hpce{
 				//cl::Event evCopiedState;
 				
 
-				cl::Event evCopiedState;
-				queue.enqueueWriteBuffer(buffState, CL_FALSE, 0, cbBuffer, &world.state[0], NULL, &evCopiedState);
+				//cl::Event evCopiedState;
+				kernel.setArg(3, buffState);
+				kernel.setArg(4, buffBuffer);
 
-				cl::NDRange offset(0, 0);               // Always start iterations at x=0, y=0
-				cl::NDRange globalSize(w, h);   // Global size must match the original loops
-				cl::NDRange localSize = cl::NullRange;    // We don't care about local size
 
-				std::vector<cl::Event> kernelDependencies(1, evCopiedState);
+				//std::vector<cl::Event> kernelDependencies(1, evCopiedState);
 
-				cl::Event evExecutedKernel;
-				queue.enqueueNDRangeKernel(kernel, offset, globalSize, localSize, &kernelDependencies, &evExecutedKernel);
+				//cl::Event evExecutedKernel;
+				queue.enqueueNDRangeKernel(kernel, offset, globalSize, localSize);
+				queue.enqueueBarrier();
 
-				std::vector<cl::Event> copyBackDependencies(1, evExecutedKernel);
-				queue.enqueueReadBuffer(buffBuffer, CL_TRUE, 0, cbBuffer, &buffer[0], &copyBackDependencies);
+				//std::vector<cl::Event> copyBackDependencies(1, evExecutedKernel);
+				
 				// All cells have now been calculated and placed in buffer, so we replace
 				// the old state with the new state
-				std::swap(world.state, buffer);
+				std::swap(buffState, buffBuffer);   // Used to be std::swap(world.state, buffer)
 				// Swapping rather than assigning is cheaper: just a pointer swap
 				// rather than a memcpy, so O(1) rather than O(w*h)
 
 				world.t += dt; // We have moved the world forwards in time
 
 			} // end of for(t...
-			//std::cerr << "hello!\n";
+			queue.enqueueReadBuffer(buffBuffer, CL_TRUE, 0, cbBuffer, &world.state[0]);
 		}
 
 	};

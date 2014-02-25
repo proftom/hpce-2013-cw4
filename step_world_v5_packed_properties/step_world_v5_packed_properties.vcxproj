@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{B7625F1A-695A-4641-BE28-B260EB600349}</ProjectGuid>
-    <RootNamespace>step_world_v3_opencl</RootNamespace>
+    <ProjectGuid>{FEEEC238-F79E-40AC-A026-C0FBD3DCE1E2}</ProjectGuid>
+    <RootNamespace>step_world_v5_packed_properties</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -71,7 +71,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\heat.cpp" />
-    <ClCompile Include="..\src\tm1810\step_world_v3_opencl.cpp" />
+    <ClCompile Include="..\src\tm1810\step_world_v5_packed_properties.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
