@@ -11,8 +11,11 @@ __kernel void kernel_xy(float inner, float outer, const __global uint *world_pro
 
 			unsigned index = y*w + x;
 							// Anything that doesn't spread stays
+			
+			//Properties
+			uint myProps = world_properties[index];
 
-			if ((world_properties[index] & Cell_Fixed) || (world_properties[index] & Cell_Insulator)){
+			if ((myProps & Cell_Fixed) || (myProps & Cell_Insulator)){
 				
 				// Do nothing, this cell never changes (e.g. a boundary, or an interior fixed-value heat-source)
 				buffer[index] = world_state[index];
@@ -22,27 +25,27 @@ __kernel void kernel_xy(float inner, float outer, const __global uint *world_pro
 				float acc = inner*world_state[index];
 
 				// Cell above
-				if (!(world_properties[index - w] & Cell_Insulator)) {
+				if(myProps & 0x4) {
 					contrib += outer;
-					acc += outer * world_state[index - w];
+					acc = fma(outer, world_state[index-w], acc);
 				}
-
+				
 				// Cell below
-				if (!(world_properties[index + w] & Cell_Insulator)) {
+				if (myProps & 0x8) {
 					contrib += outer;
-					acc += outer * world_state[index + w];
+					acc = fma(outer, world_state[index+w], acc);
 				}
 
 				// Cell left
-				if (!(world_properties[index - 1] & Cell_Insulator)) {
+				if (myProps & 0x10) {
 					contrib += outer;
-					acc += outer * world_state[index - 1];
+					acc = fma(outer, world_state[index-1], acc);
 				}
 
-				// Cell right
-				if (!(world_properties[index + 1] & Cell_Insulator)) {
+				// Cell right			
+				if (myProps & 0x20) {
 					contrib += outer;
-					acc += outer * world_state[index + 1];
+					acc = fma(outer, world_state[index+1], acc);
 				}
 
 				// Scale the accumulate value by the number of places contributing to it

@@ -164,6 +164,7 @@ namespace hpce{
 
 			// This is our temporary working space
 			std::vector<float> buffer(w*h);
+			
 
 
 			size_t cbBuffer = 4 * world.w*world.h;
@@ -178,13 +179,36 @@ namespace hpce{
 			kernel.setArg(3, buffState);
 			kernel.setArg(4, buffBuffer);
 
-
 			cl::NDRange offset(0, 0);               // Always start iterations at x=0, y=0
 			cl::NDRange globalSize(w, h);   // Global size must match the original loops
 			cl::NDRange localSize = cl::NullRange;    // We don't care about local size
+			
+
+			std::vector<uint32_t> packed(w*h, 0);
+			for (uint32_t y = 0; y < h; y++){
+				for (uint32_t x = 0; x < w; x++){
+					uint32_t index = y*w + x;
+					packed[index] = world.properties[index];
+					//Not edge or insulator
+					if (!((packed[index] & Cell_Insulator) || (packed[index] & Cell_Fixed))){
+
+						if (!(world.properties[index - w] & Cell_Insulator))
+							packed[index] = packed[index] + 0x4;
+
+						if (!(world.properties[index + w] & Cell_Insulator))
+							packed[index] = packed[index] + 0x8;
+
+						if (!(world.properties[index - 1] & Cell_Insulator))
+							packed[index] = packed[index] + 0x10;
+
+						if (!(world.properties[index + 1] & Cell_Insulator))
+							packed[index] = packed[index] + 0x20;
+					}
+				}
+			}
 
 			cl::CommandQueue queue(context, device);
-			queue.enqueueWriteBuffer(buffProperties, CL_TRUE, 0, cbBuffer, &world.properties[0]);
+			queue.enqueueWriteBuffer(buffProperties, CL_TRUE, 0, cbBuffer, &packed[0]);
 			queue.enqueueWriteBuffer(buffState, CL_FALSE, 0, cbBuffer, &world.state[0]);
 
 			for (unsigned t = 0; t < n; t++){
